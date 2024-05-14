@@ -6,46 +6,58 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 08:17:51 by aralves-          #+#    #+#             */
-/*   Updated: 2024/04/27 12:29:05 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:45:07 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_number_size(long n)
+int	ft_check_flags(unsigned long long n, t_flags *flags)
 {
 	int	i;
 
 	i = 0;
-	if (n == 0)
-		return (1);
-	if (n < 0)
+	plus_space(flags);
+	if (flags->minimum_width)
 	{
-		n *= -1;
-		i++;
+		if (flags->precision)
+			i += ft_minwidth(n, flags);
+		else
+			i += print_minwidth(flags);
 	}
-	while (n > 0)
+	if (flags->neg)
+		i += ft_putchar('-', 0);
+	if (flags->space_before_positive || flags->plus_sign)
 	{
-		n = n / 10;
-		i++;
+		if (flags->space_before_positive)
+			i += ft_putchar(' ', 0);
+		else
+			i += ft_putchar('+', 0);
 	}
+	if (flags->precision)
+		i += print_precision(n, flags);
+	else if (flags->zero_padding)
+		i += print_zero(n, flags);
 	return (i);
 }
 
-int	ft_check_precision(char *s, t_flags *flags, va_list args)
+int	ft_check_precision(char *s, t_flags *flags)
 {
 	int	i;
 
 	i = 0;
+	flags->entered = 1;
 	if (s[i] == '.')
 	{
 		i++;
-		if (s[i] == '*')
+		if (flags->zero_padding)
 		{
-			flags->precision = va_arg(args, int);
-			i++;
+			flags->minimum_width = flags->zero_padding;
+			flags->zero_padding = 0;
 		}
-		else if (ft_isdigit(s[i]))
+		while (s[i] == '0')
+			i++;
+		if (ft_isdigit(s[i]))
 		{
 			flags->precision = ft_atoi(s + i);
 			i += ft_number_size(flags->precision);
@@ -61,16 +73,18 @@ int	ft_check_left(char *s, t_flags *flags)
 	i = 0;
 	if (flags->minimum_width && ft_isdigit(s[i + 1]))
 	{
-		flags->left = 0;
+		flags->minus = 0;
 		return (ft_atoi(s + i));
 	}
 	if (s[i] == '-')
 	{
 		i++;
+		while (s[i] == '0')
+			i++;
 		if (ft_isdigit(s[i]))
 		{
-			flags->left = ft_atoi(s + i);
-			i += ft_number_size(flags->left);
+			flags->minus = ft_atoi(s + i);
+			i += ft_number_size(flags->minus);
 		}
 	}
 	return (i);
@@ -84,6 +98,8 @@ int	ft_check_padding(char *s, t_flags *flags)
 	if (s[i] == '0')
 	{
 		i++;
+		while (s[i] == '0')
+			i++;
 		if (ft_isdigit(s[i]))
 		{
 			flags->zero_padding = ft_atoi(s + i);
@@ -93,32 +109,26 @@ int	ft_check_padding(char *s, t_flags *flags)
 	return (i);
 }
 
-int	ft_check_bonus(char *s, t_flags *flags, va_list args)
+int	ft_check_bonus(char *s, t_flags *flags)
 {
 	int	i;
 
 	i = 0;
-	if (s[i] == '+' || s[i] == ' ' || s[i] == '#')
-	{
-		flags->plus_sign = (s[i] == '+');
-		flags->space_before_positive = (s[i] == ' ' && !flags->plus_sign);
-		flags->hexa = (s[i] == '#');
-		i++;
-	}
+	i += ft_plus_space_hexa(s, flags);
 	if (ft_isdigit(s[i]) && s[i] != '0')
 	{
 		flags->minimum_width = ft_atoi(s);
 		while (ft_isdigit(s[i]) && flags->minimum_width != 0)
 			i++;
 	}
-	if (s[i] == '-' || s[i] == '.' || s[i] == '0' || s[i] == '*')
+	while (s[i] == '-' || s[i] == '.' || s[i] == '0')
 	{
 		if (s[i] == '0')
 			i += ft_check_padding(s + i, flags);
 		else if (s[i] == '-')
 			i += ft_check_left(s + i, flags);
 		else if (s[i] == '.')
-			i += ft_check_precision(s + i, flags, args);
+			i += ft_check_precision(s + i, flags);
 	}
 	return (i);
 }

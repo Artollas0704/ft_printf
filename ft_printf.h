@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:10:01 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/06 16:06:00 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:38:28 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,17 @@
 
 typedef struct s_flags
 {
-	int				plus_sign;
-	int				space_before_positive;
-	int				hexa;
-	int				minimum_width;
-	int				precision;
-	int				zero_padding;
-	int				left;
-	int				size;
-	long			numberdi;
-	unsigned long	numberxp;
-	unsigned int	numberu;
-	int				di;
-	int				xp;
-	int				u;
+	int					plus_sign;
+	int					space_before_positive;
+	int					hexa;
+	int					minimum_width;
+	int					precision;
+	int					zero_padding;
+	int					minus;
+	int					size;
+	int					temp_size;
+	int					neg;
+	int					entered;
 }	t_flags;
 
 int		ft_printf(const char *s, ...);
@@ -46,19 +43,21 @@ int		ft_putunbr(unsigned int n, t_flags *flags);
 int		ft_putnbr(int n, t_flags *flags);
 int		ft_puthex(unsigned long n, int value, int flag, t_flags *flags);
 int		ft_putptr(unsigned long n);
-int		ft_check_bonus(char *s, t_flags *flags, va_list args);
+int		ft_check_bonus(char *s, t_flags *flags);
 int		ft_check_padding(char *s, t_flags *flags);
 int		ft_check_left(char *s, t_flags *flags);
-int		ft_check_precision(char *s, t_flags *flags, va_list args);
-int		ft_number_size(long n);
+int		ft_check_precision(char *s, t_flags *flags);
+int		ft_number_size(unsigned long long n);
 int		ft_check_rest(char *s);
-int		ft_printflags_putnbr(long long n, t_flags *flags);
-int		ft_printflags(int start, int end, char c);
-int		ft_check_real_size(int n, t_flags *flags);
-int		ft_printflags_unsigned_hexa(unsigned int n, t_flags *flags);
-int		ft_number_size_u(unsigned int n);
 int		ft_left_justify(t_flags *flags);
 int		ft_checkplusminus(t_flags *flags, int n);
 void	ft_flagsreset(t_flags *flags);
+int		ft_check_flags(unsigned long long n, t_flags *flags);
+int		ft_minwidth(unsigned long long n, t_flags *flags);
+int		print_minwidth(t_flags *flags);
+int		print_precision(unsigned long long n, t_flags *flags);
+int		print_zero(unsigned long long n, t_flags *flags);
+void	plus_space(t_flags *flags);
+int		ft_plus_space_hexa(char *s, t_flags *flags);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:12:44 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/06 16:20:44 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:27:12 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	ft_putstr(char *s, t_flags *flags)
 		i += ft_putstr("(null)", flags);
 		return (i);
 	}
-	if (flags && flags->left)
+	if (flags && flags->minus)
 	{
 		flags->size = ft_strlen(s);
 		if (flags->size == 0)
 		{
 			flags->size = 1;
-			flags->left++;
+			flags->minus++;
 		}
 	}
 	while (s[i])
@@ -41,12 +41,6 @@ int	ft_putunbr(unsigned int n, t_flags *flags)
 	int		i;
 
 	i = 0;
-	if (flags->numberu == 0)
-		flags->numberu = n;
-	if (flags->minimum_width)
-		i += ft_printflags_unsigned_hexa(n, flags);
-	if (flags->zero_padding != 0 || flags->precision != 0)
-		i += ft_printflags_unsigned_hexa(n, flags);
 	if (n > 9)
 		i += ft_putunbr(n / 10, flags);
 	i += ft_putchar(n % 10 + '0', 0);
@@ -59,22 +53,27 @@ int	ft_putnbr(int n, t_flags *flags)
 	long	num;
 
 	num = n;
-	if ((flags->left && flags->numberdi == 0) || flags->minimum_width)
-	{
-		flags->numberdi = num;
-		flags->di = 1;
-	}
 	i = 0;
-	if (flags->minimum_width)
-		i += ft_printflags_putnbr(n, flags);
-	i += ft_checkplusminus(flags, n);
+	if (flags->entered && num == 0 && !flags->precision)
+	{
+		i += print_minwidth(flags);
+		return (i);
+	}
 	if (num < 0)
 	{
-		i += ft_putchar('-', 0);
+		flags->space_before_positive = 0;
+		flags->plus_sign = 0;
 		num *= -1;
+		flags->neg = 1;
+		if (!flags->size)
+			flags->size = ft_number_size(num);
+		flags->size++;
+		i += ft_check_flags(num, flags);
 	}
-	if (flags->zero_padding != 0 || flags->precision != 0)
-		i += ft_printflags_putnbr(n, flags);
+	flags->neg = 0;
+	if (!flags->size)
+		flags->size = ft_number_size(num);
+	i += ft_check_flags(num, flags);
 	ft_flagsreset(flags);
 	if (num > 9)
 		i += ft_putnbr(num / 10, flags);
@@ -105,4 +104,3 @@ int	ft_check(const char *s, va_list args, t_flags *flags)
 		i += ft_putchar('%', flags);
 	return (i);
 }
-	

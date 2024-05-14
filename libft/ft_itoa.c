@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:11:55 by aralves-          #+#    #+#             */
-/*   Updated: 2024/04/17 15:55:31 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/07 18:12:19 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@ char	*ft_itoa(int n)
 	long			num;
 	int				size;
 	char			*str;
-	int				i;
 
-	i = 0;
 	num = n;
 	size = toalloc(num);
 	str = ft_calloc(size + 1, sizeof(char));

@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:09:29 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/06 16:20:59 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/14 16:46:32 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_putchar(char c, t_flags *flags)
 {
-	if (flags && flags->left)
-		flags->size = 1;
+	if (flags && flags->minus)
+		flags->size++;
 	write(1, &c, 1);
 	return (1);
 }
@@ -28,14 +28,11 @@ void	init_flags(t_flags *flags)
 	flags->minimum_width = 0;
 	flags->precision = 0;
 	flags->zero_padding = 0;
-	flags->left = 0;
-	flags->size = -1;
-	flags->numberdi = 0;
-	flags->numberxp = 0;
-	flags->numberu = 0;
-	flags->di = 0;
-	flags->xp = 0;
-	flags->u = 0;
+	flags->minus = 0;
+	flags->size = 0;
+	flags->temp_size = 0;
+	flags->neg = 0;
+	flags->entered = 0;
 }
 
 int	ft_puthex(unsigned long n, int value, int flag, t_flags *flags)
@@ -43,8 +40,6 @@ int	ft_puthex(unsigned long n, int value, int flag, t_flags *flags)
 	int	i;
 
 	i = 0;
-	if (flags && flags->minimum_width)
-		i += ft_printflags_putnbr(n, flags);
 	if (flag == 1 && value == 0 && n > 0)
 		i += ft_putstr("0x", 0);
 	if (flag == 1 && value == 1 && n > 0)
@@ -91,7 +86,7 @@ int	ft_printf(const char *s, ...)
 		if (*s == '%')
 		{
 			s++;
-			s += ft_check_bonus((char *)s, &flags, args);
+			s += ft_check_bonus((char *)s, &flags);
 			i += ft_check(s, args, &flags);
 			i += ft_left_justify(&flags);
 		}
@@ -104,7 +99,15 @@ int	ft_printf(const char *s, ...)
 
 /* int	main(void)
 {
-	//ft_printf("%d\n", ft_printf("%-1s", 0));
-	//printf("%-1s", printf("%+d", 9));
-	ft_printf("%-1s", "");
+	int	i;
+
+	i = 0;
+	
+	i = ft_printf("%+10.5d", 1);
+	ft_printf("\n");
+	ft_printf("Return: %d\n", i);
+} */
+/* int main()
+{
+	
 } */
