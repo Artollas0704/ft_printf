@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:10:01 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/14 16:38:28 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/19 23:58:11 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		ft_check(const char *s, va_list args, t_flags *flags);
 int		ft_putstr(char *s, t_flags *flags);
 int		ft_putunbr(unsigned int n, t_flags *flags);
 int		ft_putnbr(int n, t_flags *flags);
-int		ft_puthex(unsigned long n, int value, int flag, t_flags *flags);
+int		ft_puthex(unsigned long n, int value, t_flags *flags);
 int		ft_putptr(unsigned long n);
 int		ft_check_bonus(char *s, t_flags *flags);
 int		ft_check_padding(char *s, t_flags *flags);
@@ -59,5 +59,6 @@ int		print_precision(unsigned long long n, t_flags *flags);
 int		print_zero(unsigned long long n, t_flags *flags);
 void	plus_space(t_flags *flags);
 int		ft_plus_space_hexa(char *s, t_flags *flags);
-
+int		handle_hexa(t_flags *flags, unsigned long n, int value);
+int		number_len_hexa(unsigned long n);
 #endif

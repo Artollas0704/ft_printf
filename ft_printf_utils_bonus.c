@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 08:17:51 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/15 16:30:52 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/19 23:45:24 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	ft_check_left(char *s, t_flags *flags)
 	int	i;
 
 	i = 0;
-	flags->minus = 1;
 	if (s[i] == '-')
 	{
 		i++;
@@ -98,7 +97,6 @@ int	ft_check_padding(char *s, t_flags *flags)
 	int	i;
 
 	i = 0;
-	flags->zero_padding = 1;
 	if (s[i] == '0')
 	{
 		i++;

@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:12:44 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/15 13:58:16 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/19 23:51:20 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ int	ft_check(const char *s, va_list args, t_flags *flags)
 	else if (*s == 'u')
 		i += ft_putunbr(va_arg(args, unsigned int), flags);
 	else if (*s == 'x')
-		i += ft_puthex(va_arg(args, unsigned int), 0, flags->hexa, flags);
+		i += ft_puthex(va_arg(args, unsigned int), 0, flags);
 	else if (*s == 'X')
-		i += ft_puthex(va_arg(args, unsigned int), 1, flags->hexa, flags);
+		i += ft_puthex(va_arg(args, unsigned int), 1, flags);
 	else if (*s == 'p')
 		i += ft_putptr(va_arg(args, unsigned long));
 	else if (*s == '%')

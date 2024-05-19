@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:09:29 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/14 16:46:32 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/19 23:54:16 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,14 @@ void	init_flags(t_flags *flags)
 	flags->entered = 0;
 }
 
-int	ft_puthex(unsigned long n, int value, int flag, t_flags *flags)
+int	ft_puthex(unsigned long n, int value, t_flags *flags)
 {
 	int	i;
 
 	i = 0;
-	if (flag == 1 && value == 0 && n > 0)
-		i += ft_putstr("0x", 0);
-	if (flag == 1 && value == 1 && n > 0)
-		i += ft_putstr("0X", 0);
+	i += handle_hexa(flags, n, value);
 	if (n > 15)
-		i += ft_puthex(n / 16, value, 0, flags);
+		i += ft_puthex(n / 16, value, flags);
 	if (n % 16 < 10)
 		i += ft_putchar(n % 16 + '0', 0);
 	else if (value == 0)
@@ -66,7 +63,7 @@ int	ft_putptr(unsigned long n)
 		return (i);
 	}
 	i += ft_putstr("0x", 0);
-	i += ft_puthex(n, 0, 0, 0);
+	i += ft_puthex(n, 0, 0);
 	return (i);
 }
 
