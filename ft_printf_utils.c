@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:12:44 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/14 16:54:03 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:58:16 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_putstr(char *s, t_flags *flags)
 		i += ft_putstr("(null)", flags);
 		return (i);
 	}
-	if (flags && flags->minus)
+	if (flags->minus)
 	{
 		flags->size = ft_strlen(s);
 		if (flags->size == 0)
@@ -41,6 +41,17 @@ int	ft_putunbr(unsigned int n, t_flags *flags)
 	int		i;
 
 	i = 0;
+	flags->space_before_positive = 0;
+	flags->plus_sign = 0;
+	if (flags->entered && n == 0 && !flags->precision)
+	{
+		i += print_minwidth(flags);
+		return (i);
+	}
+	if (!flags->size)
+		flags->size = ft_number_size(n);
+	i += ft_check_flags(n, flags);
+	ft_flagsreset(flags);
 	if (n > 9)
 		i += ft_putunbr(n / 10, flags);
 	i += ft_putchar(n % 10 + '0', 0);

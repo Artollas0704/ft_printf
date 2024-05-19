@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 08:17:51 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/14 16:45:07 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/15 16:30:52 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,17 @@ int	ft_check_left(char *s, t_flags *flags)
 	int	i;
 
 	i = 0;
-	if (flags->minimum_width && ft_isdigit(s[i + 1]))
-	{
-		flags->minus = 0;
-		return (ft_atoi(s + i));
-	}
+	flags->minus = 1;
 	if (s[i] == '-')
 	{
 		i++;
+		if (flags->minimum_width && ft_isdigit(s[i]))
+		{
+			flags->minus = 0;
+			while (ft_isdigit(s[i]))
+				i++;
+			return (i);
+		}
 		while (s[i] == '0')
 			i++;
 		if (ft_isdigit(s[i]))
@@ -95,11 +98,15 @@ int	ft_check_padding(char *s, t_flags *flags)
 	int	i;
 
 	i = 0;
+	flags->zero_padding = 1;
 	if (s[i] == '0')
 	{
 		i++;
 		while (s[i] == '0')
+		{
+			flags->zero_padding = 0;
 			i++;
+		}
 		if (ft_isdigit(s[i]))
 		{
 			flags->zero_padding = ft_atoi(s + i);
