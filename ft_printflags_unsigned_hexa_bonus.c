@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 10:12:07 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/20 00:00:20 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:07:51 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_flagsreset(t_flags *flags)
 	flags->zero_padding = 0;
 	flags->minimum_width = 0;
 	flags->neg = 0;
+	flags->hexa = 0;
 }
 
 int	handle_hexa(t_flags *flags, unsigned long n, int value)
@@ -60,11 +61,25 @@ int	handle_hexa(t_flags *flags, unsigned long n, int value)
 	i = 0;
 	if (!flags->size)
 		flags->size += number_len_hexa(n);
-	if (flags->hexa && value == 0 && n)
+	if (flags->hexa && n)
 		flags->size += 2;
-	else if (flags->hexa && value == 1 && n)
-		flags->size += 2;
-	// print min width, precision and zero padding!!
+	i += hexa_min_width(flags, n);
+	if (flags->hexa && value && n)
+		i += ft_putstr("0X", 0);
+	else if (flags->hexa && !value && n)
+		i += ft_putstr("0x", 0);
+	if (flags->precision > number_len_hexa(n))
+	{
+		while (flags->precision > number_len_hexa(n))
+		{
+			i += ft_putchar('0', 0);
+			flags->precision--;
+			flags->size++;
+		}
+	}
+	else if (flags->zero_padding)
+		i += zero_padding_hexa(flags, n);
+	return (i);
 }
 
 int	number_len_hexa(unsigned long n)

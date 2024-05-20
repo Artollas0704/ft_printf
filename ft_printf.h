@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:10:01 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/19 23:58:11 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/20 16:51:12 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,7 @@ void	plus_space(t_flags *flags);
 int		ft_plus_space_hexa(char *s, t_flags *flags);
 int		handle_hexa(t_flags *flags, unsigned long n, int value);
 int		number_len_hexa(unsigned long n);
+int		hexa_min_width(t_flags *flags, unsigned long n);
+int		print_min_width_hexa(t_flags *flags, unsigned long n);
+int		zero_padding_hexa(t_flags *flags, unsigned long n);
 #endif

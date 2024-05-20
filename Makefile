@@ -6,7 +6,7 @@
 #    By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/25 21:31:15 by aralves-          #+#    #+#              #
-#    Updated: 2024/05/13 15:17:10 by aralves-         ###   ########.fr        #
+#    Updated: 2024/05/20 16:32:42 by aralves-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ RM = rm -f
 LIBFT_DIR = libft
 
 OBJS = $(SRCS:.c=.o)
-SRCS = ft_printf.c ft_printf_utils.c ft_printf_utils_bonus.c ft_printf_utils_bonus2.c ft_printflags_unsigned_hexa_bonus.c ft_minwidth.c\
+SRCS = ft_printf.c ft_printf_utils.c ft_printf_utils_bonus.c ft_printf_utils_bonus2.c ft_printflags_unsigned_hexa_bonus.c ft_minwidth.c ft_hexa.c\
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)

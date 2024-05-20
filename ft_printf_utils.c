@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:12:44 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/19 23:51:20 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:05:02 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@ int	ft_putstr(char *s, t_flags *flags)
 	{
 		i += ft_putstr("(null)", flags);
 		return (i);
-	}
-	if (flags->minus)
-	{
-		flags->size = ft_strlen(s);
-		if (flags->size == 0)
-		{
-			flags->size = 1;
-			flags->minus++;
-		}
 	}
 	while (s[i])
 		i += ft_putchar(s[i], 0);

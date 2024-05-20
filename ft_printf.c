@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:09:29 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/19 23:54:16 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/20 17:05:48 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,14 @@ int	ft_puthex(unsigned long n, int value, t_flags *flags)
 	int	i;
 
 	i = 0;
-	i += handle_hexa(flags, n, value);
+	if (flags->entered && !flags->precision && n == 0)
+	{
+		i += print_minwidth(flags);
+		return (i);
+	}
+	if (!flags->size)
+		i += handle_hexa(flags, n, value);
+	ft_flagsreset(flags);
 	if (n > 15)
 		i += ft_puthex(n / 16, value, flags);
 	if (n % 16 < 10)
@@ -106,5 +113,5 @@ int	ft_printf(const char *s, ...)
 } */
 /* int main()
 {
-	
-} */
+	ft_printf("wait for it... %#X", 42);
+}  */
