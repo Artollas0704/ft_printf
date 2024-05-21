@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:10:01 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/20 16:51:12 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:56:41 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ typedef struct s_flags
 }	t_flags;
 
 int		ft_printf(const char *s, ...);
-int		ft_putchar(char c, t_flags *flags);
+int		ft_putchar(int c, t_flags *flags);
 int		ft_check(const char *s, va_list args, t_flags *flags);
 int		ft_putstr(char *s, t_flags *flags);
 int		ft_putunbr(unsigned int n, t_flags *flags);
 int		ft_putnbr(int n, t_flags *flags);
 int		ft_puthex(unsigned long n, int value, t_flags *flags);
-int		ft_putptr(unsigned long n);
+int		ft_putptr(unsigned long n, t_flags *flags);
 int		ft_check_bonus(char *s, t_flags *flags);
 int		ft_check_padding(char *s, t_flags *flags);
 int		ft_check_left(char *s, t_flags *flags);
@@ -64,4 +64,5 @@ int		number_len_hexa(unsigned long n);
 int		hexa_min_width(t_flags *flags, unsigned long n);
 int		print_min_width_hexa(t_flags *flags, unsigned long n);
 int		zero_padding_hexa(t_flags *flags, unsigned long n);
+int		handle_str(char *s, t_flags *flags);
 #endif

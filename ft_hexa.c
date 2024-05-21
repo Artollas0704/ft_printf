@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:55:05 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/20 17:08:11 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:20:57 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,30 @@ int	zero_padding_hexa(t_flags *flags, unsigned long n)
 		flags->zero_padding--;
 		flags->size++;
 	}
+	return (i);
+}
+
+int	handle_str(char *s, t_flags *flags)
+{
+	int	i;
+
+	i = 0;
+	if (flags->entered && flags->precision < (int)ft_strlen(s))
+		flags->size += flags->precision;
+	else
+		flags->size += ft_strlen(s);
+	if (flags->minimum_width)
+		i += print_minwidth(flags);
+	if (flags->entered && flags->precision < (int)ft_strlen(s))
+	{
+		while (flags->precision && *s)
+		{
+			i += ft_putchar(*s, 0);
+			flags->precision--;
+			s++;
+		}
+	}
+	else
+		i += ft_putstr(s, 0);
 	return (i);
 }

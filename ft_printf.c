@@ -6,18 +6,27 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:09:29 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/20 17:05:48 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:52:19 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putchar(char c, t_flags *flags)
+int	ft_putchar(int c, t_flags *flags)
 {
-	if (flags && flags->minus)
-		flags->size++;
-	write(1, &c, 1);
-	return (1);
+	int	i;
+
+	i = 0;
+	if (!flags)
+	{
+		write(1, &c, 1);
+		return (1);
+	}
+	flags->size++;
+	if (flags->minimum_width)
+		i += print_minwidth(flags);
+	i += write(1, &c, 1);
+	return (i);
 }
 
 void	init_flags(t_flags *flags)
@@ -59,18 +68,18 @@ int	ft_puthex(unsigned long n, int value, t_flags *flags)
 	return (i);
 }
 
-int	ft_putptr(unsigned long n)
+int	ft_putptr(unsigned long n, t_flags *flags)
 {
 	int	i;
 
 	i = 0;
 	if (!n)
 	{
-		i += ft_putstr("(nil)", 0);
+		i += ft_putstr("(nil)", flags);
 		return (i);
 	}
-	i += ft_putstr("0x", 0);
-	i += ft_puthex(n, 0, 0);
+	flags->hexa = 1;
+	i += ft_puthex(n, 0, flags);
 	return (i);
 }
 
@@ -113,5 +122,5 @@ int	ft_printf(const char *s, ...)
 } */
 /* int main()
 {
-	ft_printf("wait for it... %#X", 42);
+	ft_printf("%-20carigatou", 'w');
 }  */

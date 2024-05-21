@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:12:44 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/20 17:05:02 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:22:38 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,26 @@ int	ft_putstr(char *s, t_flags *flags)
 	int	i;
 
 	i = 0;
-	if (!s)
+	if (!flags && s)
 	{
-		i += ft_putstr("(null)", flags);
+		while (s[i])
+			i += ft_putchar(s[i], 0);
 		return (i);
 	}
-	while (s[i])
-		i += ft_putchar(s[i], 0);
+	else if (!flags && !s)
+	{
+		i += ft_putstr("(null)", 0);
+		return (i);
+	}
+	else if (flags && flags->entered && !s && flags->precision < 6)
+	{
+		i += print_minwidth(flags);
+		return (i);
+	}
+	else if (flags && s)
+		i += handle_str(s, flags);
+	else
+		i += handle_str("(null)", flags);
 	return (i);
 }
 
@@ -101,7 +114,7 @@ int	ft_check(const char *s, va_list args, t_flags *flags)
 	else if (*s == 'X')
 		i += ft_puthex(va_arg(args, unsigned int), 1, flags);
 	else if (*s == 'p')
-		i += ft_putptr(va_arg(args, unsigned long));
+		i += ft_putptr(va_arg(args, unsigned long), flags);
 	else if (*s == '%')
 		i += ft_putchar('%', flags);
 	return (i);
