@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:56:52 by aralves-          #+#    #+#             */
-/*   Updated: 2024/04/16 16:05:30 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:18:08 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	}
 	if (n == 0)
 		return (0);
-	return (*(unsigned char *)s1 - *(unsigned char *)s2); 
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
 /* int main()

@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:12:44 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/21 17:22:38 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:42:03 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,8 @@ int	ft_putnbr(int n, t_flags *flags)
 	}
 	if (num < 0)
 	{
-		flags->space_before_positive = 0;
-		flags->plus_sign = 0;
+		i += lesszero(num, flags, i);
 		num *= -1;
-		flags->neg = 1;
-		if (!flags->size)
-			flags->size = ft_number_size(num);
-		flags->size++;
-		i += ft_check_flags(num, flags);
 	}
 	flags->neg = 0;
 	if (!flags->size)

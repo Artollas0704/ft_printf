@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 13:55:05 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/21 17:20:57 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:39:28 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,18 @@ int	handle_str(char *s, t_flags *flags)
 	}
 	else
 		i += ft_putstr(s, 0);
+	return (i);
+}
+
+int	lesszero(long num, t_flags *flags, int i)
+{
+	flags->space_before_positive = 0;
+	flags->plus_sign = 0;
+	num *= -1;
+	flags->neg = 1;
+	if (!flags->size)
+		flags->size = ft_number_size(num);
+	flags->size++;
+	i += ft_check_flags(num, flags);
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:10:01 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/21 16:56:41 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:40:01 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,6 @@ int		hexa_min_width(t_flags *flags, unsigned long n);
 int		print_min_width_hexa(t_flags *flags, unsigned long n);
 int		zero_padding_hexa(t_flags *flags, unsigned long n);
 int		handle_str(char *s, t_flags *flags);
+int		lesszero(long num, t_flags *flags, int i);
+
 #endif
