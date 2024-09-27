@@ -6,7 +6,7 @@
 /*   By: aralves- <aralves-@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 21:09:29 by aralves-          #+#    #+#             */
-/*   Updated: 2024/05/21 16:52:19 by aralves-         ###   ########.fr       */
+/*   Updated: 2024/09/27 17:21:27 by aralves-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	ft_printf(const char *s, ...)
 
 	i = 0;
 	
-	i = ft_printf("%+10.5d", 1);
+	i = ft_printf("%.1d", -1);
 	ft_printf("\n");
 	ft_printf("Return: %d\n", i);
 } */
